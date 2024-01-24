@@ -4,13 +4,10 @@
 // Task 1
 console.log("1.");
 
-let input;
-do {
-    input = prompt("Enter number value");
-    if(isNaN(input)) {
-        alert("Try again.")
-    }
-} while (isNaN(input));
+let input = prompt("Enter number value");
+if(isNaN(input)) {
+        alert("The input was not a number.")
+}
 
 console.log("for")
 for(let i = 2; i < input; i+=2) {
@@ -18,10 +15,10 @@ for(let i = 2; i < input; i+=2) {
 }
 
 console.log("while")
-if(input % 2 == 1) input--;
-while(input > 2) {
-    console.log(input);
-    input-=2; 
+let output = 2;
+while(output < input) {
+    console.log(output);
+    output+=2; 
 }
 
 console.log("\n");
@@ -52,11 +49,6 @@ let resultSequence = "";
 console.log(inputSequence);
 for (let i = 0; i < inputSequence.length; i++)
 {
-    if (inputSequence[i] < 5){
-        resultSequence += "0";
-        continue;
-    }
-    
-    resultSequence += "1";
+    resultSequence += inputSequence[i] < 5 ? "0" : "1";
 }
 console.log(resultSequence);
