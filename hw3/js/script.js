@@ -8,19 +8,21 @@ let input = prompt("Enter number value");
 if(isNaN(input)) {
         alert("The input was not a number.")
 }
+else {
+    console.log("for")
+    for(let i = 2; i < input; i+=2) {
+        console.log(i);
+    }
 
-console.log("for")
-for(let i = 2; i < input; i+=2) {
-    console.log(i);
+    console.log("while")
+    let output = 2;
+    while(output < input) {
+        console.log(output);
+        output+=2; 
+    }
 }
-
-console.log("while")
-let output = 2;
-while(output < input) {
-    console.log(output);
-    output+=2; 
-}
-
+   
+   
 console.log("\n");
 
 // Task 2
@@ -37,7 +39,6 @@ for(let i = 1; i <= 100; i++) {
 
     output.length == 0 ? console.log(i) : console.log(output);
 }
-
 
 console.log("\n");
 
