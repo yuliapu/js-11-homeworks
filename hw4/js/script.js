@@ -4,8 +4,7 @@
 console.log(1);
 
 const currentMaxValue = 4589;
-let reversedDigits = currentMaxValue.toString().split("").reverse();
-let reversedNumber = Number(reversedDigits.join(""));
+let reversedNumber = Number(currentMaxValue.toString().split("").reverse().join(""));
 
 console.log(reversedNumber); 
 console.log(typeof reversedNumber); 
