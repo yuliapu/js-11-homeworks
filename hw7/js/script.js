@@ -25,7 +25,7 @@ oRAngGEs: '48.7584',
 
 function optimizer(data) {
 	let entries = Object.entries(data);
-  entries = entries.map(entry => [entry[0].toLowerCase(), Number(entry[1]).toFixed(2)]);
+  entries = entries.map(([key, value]) => [key.toLowerCase(), Number(value).toFixed(2)]);
   return Object.fromEntries(entries);
 };
 
@@ -44,10 +44,10 @@ const names = ['Петро', 'Емма', 'Юстин', 'Ілля', 'Марта',
 const vowels = ['а', 'е', 'и', 'і', 'о', 'у', 'я', 'ю', 'є', 'ї'];
 let filteredNames = [];
 
-for (let name of names){
-  if (vowels.some(vowel => name.toLowerCase().startsWith(vowel)))
+names.forEach(name => {
+  if (vowels.includes(name[0].toLowerCase()))
     filteredNames.push(name);
-}
+})
 
 console.log(names.filter(name => vowels.includes(name[0].toLowerCase())));
 console.log(filteredNames); 
@@ -58,11 +58,9 @@ console.log(filteredNames);
 
 const fullNames = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
 
-let initials = fullNames.map(fullname => fullname.split(' ').map(name => name[0]));
-initials = initials.map(initial => initial.join('.')).sort();
+let initials = fullNames.map(fullname => fullname.split(' ').map(name => name[0]).join('.'));
 
-
-console.log(initials); // [ "Г.П.А.", "П.О.І.", "Р.А.О."]
+console.log(initials.sort()); // [ "Г.П.А.", "П.О.І.", "Р.А.О."]
 
 
 // 5. Додаткова задача*
@@ -72,6 +70,9 @@ console.log(initials); // [ "Г.П.А.", "П.О.І.", "Р.А.О."]
 function sortArray(arr) {
 	if(!Array.isArray(arr) || arr.length < 1){
     return []
+  }
+  if (arr.length == 1){
+    return arr;
   }
 
   return arr.slice().sort((a, b) => a - b);
