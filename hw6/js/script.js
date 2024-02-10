@@ -29,7 +29,7 @@ function recursiveOddSumTo(number) {
     return 0;
 
   if (number % 2 == 0) 
-    return (--number + recursiveOddSumTo(number-2));
+    return recursiveOddSumTo(number-1);
 
   return (number + recursiveOddSumTo(number-2))
 };
