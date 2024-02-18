@@ -9,8 +9,7 @@ console.log(addThemAll(1,2,3,4)); // 10
 console.log(addThemAll(5,5,10)); // 20
 
 function addThemAll(...args){
-  let copy = [...args];
-  return copy.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+  return args.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 }
 
 
