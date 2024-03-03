@@ -10,15 +10,10 @@
  let navigationByDomElement = document.querySelector('#headerTwo');
  console.log(navigationByDomElement);
 
- let firstElementFromSection = document.querySelector('section').children[0];
+ let firstElementFromSection = document.querySelector('section');
  console.log(firstElementFromSection);
  
- let listElement5;
- document.querySelectorAll('li').forEach((el) => {
-  if (el.innerText === "Пункт 5"){
-    listElement5 = el;
-  }
- });
+ let listElement5 = document.querySelectorAll('li')[4];
  console.log(listElement5);
 
  let hatredLevelBlockElement = document.querySelector('.hatredLevelBlock')
