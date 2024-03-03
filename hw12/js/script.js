@@ -13,8 +13,14 @@
  let firstElementFromSection = document.querySelector('section');
  console.log(firstElementFromSection);
  
- let listElement5 = document.querySelectorAll('li')[4];
- console.log(listElement5);
+ let listElement51 = document.querySelector('ul').children[4];
+ let listElement52 = document.querySelector('li:nth-of-type(5)');
+ let listElement53 = document.querySelector('li:nth-child(5)');
+ let listElement54 = document.querySelectorAll('li')[4];
+ console.log(listElement51);
+ console.log(listElement52);
+ console.log(listElement53);
+ console.log(listElement54);
 
  let hatredLevelBlockElement = document.querySelector('.hatredLevelBlock')
  console.log(hatredLevelBlockElement);
