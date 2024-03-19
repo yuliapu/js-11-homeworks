@@ -1,7 +1,7 @@
 "use strict";
 
 let switchButton = document.querySelector('button');
-let body = document.querySelector('body');
+let body = document.body;
 let lastUpdatedTime = document.querySelector('p');
 
 const turnOffText = "Turn off";
@@ -49,12 +49,14 @@ function setTurnedOffStyles(){
 function getLastUpdateTime(datetimeInput, state){
     const format = (input) => `${('0' + input).slice(-2)}`;
     let datetime = new Date(datetimeInput);
-    let formattedDateTime = `${format(datetime.getDate())}-`+
-                             `${format(datetime.getMonth())}-`+
-                             `${datetime.getFullYear()} `+
-                             `${format(datetime.getHours())}:${format(datetime.getMinutes())}:${format(datetime.getSeconds())}`;
-    
-    return formattedDateTime;
+    const date = format(datetime.getDate());
+    const month = format(datetime.getMonth() + 1);
+    const year = datetime.getFullYear();
+    const hours = format(datetime.getHours());
+    const minutes = format(datetime.getMinutes());
+    const seconds = format(datetime.getSeconds());
+
+    return `${date}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 }
 
 function setTurnOnStylesAndText(datetimeInput){
