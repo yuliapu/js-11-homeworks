@@ -28,22 +28,32 @@ const clearTasksFromStorage = () => {
 
 const removeTaskFromStorage = (deletedTask) => {
   const tasks = getTasksFromStorage();
-
-  const deletedIndex = tasks.findIndex((task) => task === deletedTask);
+  const deletedIndex = tasks.findIndex((task) => task.id == deletedTask.id);
   tasks.splice(deletedIndex, 1);
 
   localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
 };
 
+const getLiInnerHtml = (value) => `${value} <i class="fa fa-edit edit-item"></i> <i class="fa fa-remove delete-item"></i>`;
+
+const updateTaskInStorage = (updatedTask) => {
+    const tasks = getTasksFromStorage();
+    const updatedIndex = tasks.findIndex((task) => task.id == updatedTask.id);
+    tasks.splice(updatedIndex, 1, updatedTask);
+
+    localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
+  };
+  
 //
 
 // "tasks" functions
-const appendLi = (value) => {
+const appendLi = (task) => {
   // Create and add LI element
   const li = document.createElement("li");
   // li.textContent = value; // Значення яке ввів користувач
-  li.innerHTML = `${value} <i class="fa fa-remove delete-item"></i>`;
+  li.innerHTML = getLiInnerHtml(task.value);
   taskList.append(li);
+  li.dataset.id = task.id;
 };
 
 const addTask = (event) => {
@@ -55,7 +65,9 @@ const addTask = (event) => {
     return;
   }
 
-  appendLi(value);
+  let task = {id: Date.now(), value: value};
+
+  appendLi(task);
 
   // Очистити форму
   // 1 - скидає значення у input'a taskInput
@@ -67,7 +79,7 @@ const addTask = (event) => {
   taskInput.focus();
 
   // Зберігаємо елемент у localStorage
-  storeTaskInStorage(value);
+  storeTaskInStorage(task);
 };
 
 const clearTasks = () => {
@@ -90,10 +102,26 @@ const removeTask = (event) => {
   li.remove();
 
   // Видалити зі сховища
-  const deletedTask = li.textContent.trim();
+  let deletedTask = {id: li.dataset.id, value: li.textContent.trim()};
   removeTaskFromStorage(deletedTask);
 };
 
+const editTask = (event) => {
+  const isEditButton = event.target.classList.contains("edit-item");
+  if (!isEditButton) {
+    return;
+  }
+
+  const updatedText = prompt("Будь ласка, введіть нову назву для завдання.");
+  if (!updatedText) {
+    return;
+ }
+    
+  const li = event.target.closest("li");
+  li.innerHTML = getLiInnerHtml(updatedText);
+  updateTaskInStorage({id: li.dataset.id, value: updatedText});
+};
+  
 const filterTasks = ({ target: { value } }) => {
   const text = value.toLowerCase();
   const list = taskList.querySelectorAll("li"); // []
@@ -126,5 +154,7 @@ form.addEventListener("submit", addTask);
 clearButton.addEventListener("click", clearTasks);
 
 taskList.addEventListener("click", removeTask);
+
+taskList.addEventListener("click", editTask);
 
 filterInput.addEventListener("input", filterTasks);
