@@ -34,7 +34,7 @@ const removeTaskFromStorage = (deletedTask) => {
   localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
 };
 
-const getLiInnerHtml = (value) => `${value} <i class="fa fa-edit edit-item"></i> <i class="fa fa-remove delete-item"></i>`;
+const getLiTemplate = (value) => `${value} <i class="fa fa-edit edit-item"></i> <i class="fa fa-remove delete-item"></i>`;
 
 const updateTaskInStorage = (updatedTask) => {
     const tasks = getTasksFromStorage();
@@ -51,7 +51,7 @@ const appendLi = (task) => {
   // Create and add LI element
   const li = document.createElement("li");
   // li.textContent = value; // Значення яке ввів користувач
-  li.innerHTML = getLiInnerHtml(task.value);
+  li.innerHTML = getLiTemplate(task.value);
   taskList.append(li);
   li.dataset.id = task.id;
 };
@@ -112,13 +112,13 @@ const editTask = (event) => {
     return;
   }
 
-  const updatedText = prompt("Будь ласка, введіть нову назву для завдання.");
+  const li = event.target.closest("li");
+  const updatedText = prompt("Будь ласка, введіть нову назву для завдання.", li.textContent);
   if (!updatedText) {
     return;
  }
     
-  const li = event.target.closest("li");
-  li.innerHTML = getLiInnerHtml(updatedText);
+  li.innerHTML = getLiTemplate(updatedText);
   updateTaskInStorage({id: li.dataset.id, value: updatedText});
 };
   
