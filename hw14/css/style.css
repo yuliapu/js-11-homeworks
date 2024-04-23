@@ -1,0 +1,54 @@
+  * {
+      box-sizing: border-box;
+  }
+  
+  ::placeholder {
+      color: #f2a899;;
+  }
+  
+  body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: rgb(255, 240, 245);
+      font-size: 1.4rem;
+      font-family: Helvetica;
+ 
+      width: 90%;
+      max-width: 60rem;
+      margin: auto;
+      position: relative;
+      padding-bottom: 1.5rem;
+      
+  }
+  h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #73204f;
+    margin: 4rem 0 1rem;
+}
+
+.fa {
+    color: #73204f;
+}
+
+  button, input {
+      box-shadow: none;
+      width: 100%;
+      padding: 10px 13px;
+      background: #fff;
+      border: 2px solid #f2a899;;
+      font-size: 1.4rem;
+      font-family: Helvetica;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      outline-color: rgba(#73204f, 0.4);
+      color: #73204f;
+  }
+  
+  li {
+      transition: 0.2s;
+      position: relative;
+      color: #73204f;
+      
+      }
