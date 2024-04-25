@@ -8,7 +8,11 @@ async function retry(func, { retries }){
   for (let i = 0; i < retries; i++) {
     try {      
       console.log(`Trying to execute async function. Attempt ${i+1}.`);
-      return await func();
+      let result = await func();
+      
+      console.log("Success!");
+      return result;
+
     } catch (error) {
       console.error(error);
       errors.push(error);
