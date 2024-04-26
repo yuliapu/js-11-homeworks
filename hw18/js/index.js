@@ -21,7 +21,8 @@ const showProfile = (
     location,
     created_at,
   },
-  followersList
+  followersList,
+  reposList
 ) => {
   profile.innerHTML = `
         <div class="card card-body mb-3">
@@ -58,7 +59,11 @@ const showProfile = (
         <h3 class="page-heading mb-3">Latest Repos</h3>
         <div class="repos"></div>
     `;
+  populateFollowers(followersList);
+  populateRepos(reposList);
+};
 
+const populateFollowers = (followersList) => {
   const followersElement = document.querySelector(".followers");
   const list = document.createElement("ul");
 
@@ -70,7 +75,20 @@ const showProfile = (
   });
 
   followersElement.append(list);
-};
+}
+
+const populateRepos = (reposList) => {
+  const reposElement = document.querySelector(".repos");
+  const list = document.createElement("ul");
+
+  reposList.forEach((repo) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<a href="${repo.html_url}">${repo.name}</a>`;
+    list.append(li);
+  });
+
+  reposElement.append(list);
+}
 
 const clearProfile = () => {
   profile.innerHTML = "";
@@ -89,12 +107,11 @@ const handleInput = async ({ target: { value } }) => {
     }
 
     const user = await api.getUser(inputValue);
-    const followers = await api.getFollowers(inputValue, 6);
-
+    const [followers, repos] = await Promise.all([api.getFollowers(inputValue, 6), api.getRepos(inputValue)])
     // Promise.all
     // const [user, followers] = await Promise.all([getUser(inputValue), getFollowers(inputValue, 6)])
 
-    showProfile(user, followers);
+    showProfile(user, followers, repos);
   } catch (error) {
     showAlert(error.message, "danger", 2000);
   }
